@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tempahan Homestay DesaBarakah</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif; margin: 0; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box;
+      background: linear-gradient(135deg, #fef3c7 0%, #ffedd5 100%); color: #1e293b;
+    }
+    .container {
+      background: white; border-radius: 32px; padding: 36px 28px; max-width: 620px; width: 100%;
+      box-shadow: 0 25px 50px -12px rgba(234, 88, 12, 0.15); border: 6px solid #fff;
+    }
+    .header-icon {
+      background: #ffedd5; width: 68px; height: 68px; border-radius: 50%; display: inline-flex;
+      align-items: center; justify-content: center; font-size: 2.2rem; margin: 0 auto 16px;
+    }
+    h1 {
+      font-size: 2.2rem; font-weight: 900; line-height: 1.15; margin: 0 0 8px; letter-spacing: -0.03em; text-align: center;
+      background: linear-gradient(to right, #ea580c, #db2777, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .tagline { color: #6b7280; font-size: 1.05rem; font-weight: 500; margin: 0 0 20px; text-align: center; }
+    
+    /* Specs Bento Grid */
+    .specs-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 24px;
+    }
+    .spec-card {
+      background: #fafafa; border: 1.5px solid #f1f5f9; padding: 12px 14px; border-radius: 16px;
+      display: flex; align-items: center; gap: 10px; text-align: left; transition: transform 0.2s;
+    }
+    .spec-card:hover { transform: translateY(-2px); border-color: #ffd8a8; background: #fffcf5; }
+    .spec-icon { font-size: 1.5rem; }
+    .spec-title { font-size: 0.8rem; color: #64748b; margin: 0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .spec-value { font-size: 0.95rem; color: #1e293b; font-weight: 700; margin: 1px 0 0; }
+    
+    /* Calendar styling */
+    .cal-box {
+      background: #fffdfa; border: 2px solid #fed7aa; border-radius: 24px; padding: 20px; margin-bottom: 24px;
+    }
+    .cal-header {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 8px;
+    }
+    .cal-title { font-weight: 800; font-size: 1.1rem; color: #a16207; display: flex; align-items: center; gap: 6px; }
+    .month-control { display: flex; align-items: center; gap: 8px; }
+    .nav-btn {
+      background: #ffedd5; border: none; color: #ea580c; width: 34px; height: 34px; border-radius: 50%;
+      cursor: pointer; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover { background: #fed7aa; color: #c2410c; }
+    .month-select {
+      background: white; border: 1px solid #fed7aa; padding: 6px 12px; border-radius: 50px;
+      font-size: 0.9rem; font-weight: 700; color: #ea580c; cursor: pointer; outline: none;
+    }
+    .weekdays {
+      display: grid; grid-template-columns: repeat(7, 1fr); text-align: center;
+      font-size: 0.75rem; font-weight: 800; color: #9a3412; margin-bottom: 8px; text-transform: uppercase;
+    }
+    .days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+    .day-btn {
+      aspect-ratio: 1; border: none; background: transparent; border-radius: 50%; font-weight: 600;
+      font-size: 0.85rem; color: #4b5563; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; transition: all 0.15s;
+    }
+    .day-btn:hover:not(.empty) { background: #ffedd5; color: #ea580c; font-weight: 700; }
+    .day-btn.selected { background: #ea580c !important; color: white !important; font-weight: 800; transform: scale(1.1); }
+    .day-btn.empty { cursor: default; }
+
+    /* Buttons */
+    .button {
+      background: linear-gradient(135deg, #ea580c, #f59e0b); border: none; color: white;
+      padding: 16px 36px; font-size: 1.2rem; font-weight: 800; border-radius: 50px; cursor: pointer;
+      width: 100%; transition: all 0.2s; box-shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.4);
+      display: flex; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box;
+    }
+    .button:hover { background: linear-gradient(135deg, #f97316, #fbbf24); transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(234, 88, 12, 0.5); }
+    .button:active { transform: translateY(1px); }
+    .button:disabled { background: #cbd5e1; cursor: not-allowed; box-shadow: none; }
+    
+    /* Result Box */
+    .result {
+      margin: 24px 0 0; padding: 22px; background: #fffcf8; border-radius: 20px;
+      border: 2px dashed #fed7aa; text-align: center; min-height: 90px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .date-display {
+      font-size: 1.4rem; font-weight: 800; color: #9a3412; margin: 8px 0;
+      animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes pop { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    
+    .price-tag {
+      background: #fef3c7; border: 1px solid #fde68a; padding: 4px 12px; border-radius: 50px;
+      font-size: 0.85rem; font-weight: 700; color: #b45309; display: inline-block; margin-top: 4px;
+    }
+    .booking-btn {
+      margin-top: 12px; background: #16a34a; color: white; border: none; padding: 10px 22px;
+      border-radius: 50px; font-size: 0.9rem; font-weight: 700; cursor: pointer; display: inline-flex;
+      align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25); transition: all 0.2s;
+      text-decoration: none;
+    }
+    .booking-btn:hover { background: #15803d; transform: translateY(-1px); }
+    .booking-btn:active { transform: translateY(1px); }
+
+    @media (max-width: 480px) {
+      .specs-grid { grid-template-columns: 1fr; }
+      .container { padding: 24px 18px; }
+      h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div style="text-align: center;">
+      <div class="header-icon">🏡</div>
+    </div>
+    <h1>Tempahan Homestay DesaBarakah</h1>
+    <p class="tagline">Suasana kampung yang damai, keselesaan moden yang mewah.</p>
+    
+    <!-- Info Bento Grid -->
+    <div class="specs-grid">
+      <div class="spec-card">
+        <span class="spec-icon">📍</span>
+        <div>
+          <p class="spec-title">Lokasi</p>
+          <p class="spec-value">Kg Bukit Tiu, Machang</p>
+        </div>
+      </div>
+      <div class="spec-card">
+        <span class="spec-icon">💵</span>
+        <div>
+          <p class="spec-title">Harga Semalam</p>
+          <p class="spec-value">RM 200 sahaja</p>
+        </div>
+      </div>
+      <div class="spec-card">
+        <span class="spec-icon">❄️</span>
+        <div>
+          <p class="spec-title">Bilik Tidur</p>
+          <p class="spec-value">3 Bilik Full Aircond</p>
+        </div>
+      </div>
+      <div class="spec-card">
+        <span class="spec-icon">🚗</span>
+        <div>
+          <p class="spec-title">Parking</p>
+          <p class="spec-value">Kawasan Sangat Luas</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Calendar Card Container -->
+    <div class="cal-box">
+      <div class="cal-header">
+        <span class="cal-title">📅 Kalendar 2026</span>
+        <div class="month-control">
+          <button class="nav-btn" onclick="changeMonth(-1)">‹</button>
+          <select class="month-select" id="monthSelect" onchange="selectMonth(this.value)">
+            <option value="0">Januari</option>
+            <option value="1">Februari</option>
+            <option value="2">Mac</option>
+            <option value="3">April</option>
+            <option value="4">Mei</option>
+            <option value="5">Jun</option>
+            <option value="6">Julai</option>
+            <option value="7">Ogos</option>
+            <option value="8">September</option>
+            <option value="9">Oktober</option>
+            <option value="10">November</option>
+            <option value="11">Disember</option>
+          </select>
+          <button class="nav-btn" onclick="changeMonth(1)">›</button>
+        </div>
+      </div>
+      
+      <div class="weekdays">
+        <div>Ah</div><div>Is</div><div>Se</div><div>Ra</div><div>Kh</div><div>Ju</div><div>Sa</div>
+      </div>
+      <div class="days-grid" id="daysGrid"></div>
+    </div>
+
+    <!-- Main Random Selector Button -->
+    <button class="button" id="rollBtn" onclick="pickDate()">Pilih untuk saya! 🎲</button>
+
+    <!-- Results Box -->
+    <div class="result" id="res">
+      <div style="font-size: 1rem; font-weight: 700; color: #c2410c;">Sila sedia untuk percutian 2026!</div>
+      <p style="color: #fb923c; margin: 4px 0 0; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Pilih pada kalendar di atas ATAU tekan butang rawak!</p>
+    </div>
+  </div>
+
+  <script>
+    const days = ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'];
+    const months = ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'];
+    
+    let currentMonth = 5; // Start on June 2026 for demonstration
+    let selectedDate = null; // Store currently selected Date object
+    
+    // Set view to June 2026 by default
+    document.getElementById('monthSelect').value = currentMonth;
+    renderCalendar();
+
+    function renderCalendar() {
+      const grid = document.getElementById('daysGrid');
+      grid.innerHTML = '';
+      
+      // Get first day of current month in 2026
+      const firstDayIndex = new Date(2026, currentMonth, 1).getDay();
+      // Get number of days in current month in 2026
+      const totalDays = new Date(2026, currentMonth + 1, 0).getDate();
+      
+      // Render blank cells
+      for (let i = 0; i < firstDayIndex; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'day-btn empty';
+        grid.appendChild(emptyCell);
+      }
+      
+      // Render active day buttons
+      for (let day = 1; day <= totalDays; day++) {
+        const dayBtn = document.createElement('button');
+        dayBtn.className = 'day-btn';
+        dayBtn.innerText = day;
+        
+        // Check if this date is the selected date
+        if (selectedDate && 
+            selectedDate.getFullYear() === 2026 && 
+            selectedDate.getMonth() === currentMonth && 
+            selectedDate.getDate() === day) {
+          dayBtn.classList.add('selected');
+        }
+        
+        dayBtn.onclick = () => selectDate(day);
+        grid.appendChild(dayBtn);
+      }
+    }
+
+    function selectMonth(m) {
+      currentMonth = parseInt(m);
+      renderCalendar();
+    }
+
+    function changeMonth(dir) {
+      currentMonth += dir;
+      if (currentMonth < 0) currentMonth = 11;
+      if (currentMonth > 11) currentMonth = 0;
+      document.getElementById('monthSelect').value = currentMonth;
+      renderCalendar();
+    }
+
+    function selectDate(day) {
+      selectedDate = new Date(2026, currentMonth, day);
+      renderCalendar();
+      updateResultDisplay();
+    }
+
+    function updateResultDisplay() {
+      if (!selectedDate) return;
+      const dayName = days[selectedDate.getDay()];
+      const dayNum = selectedDate.getDate();
+      const monthName = months[selectedDate.getMonth()];
+      const formattedDate = `${dayName}, ${dayNum} ${monthName} 2026`;
+      
+      // WhatsApp message text logic with URL encoding
+      const textMessage = encodeURIComponent(`Salam Homestay DesaBarakah, saya berminat untuk menempah penginapan pada tarikh bertuah ini: ${formattedDate}. Adakah ada kekosongan?`);
+      const whatsappURL = `https://wa.me/60123456789?text=${textMessage}`;
+
+      document.getElementById('res').innerHTML = `
+        <div style="font-size:0.85rem; color:#ea580c; font-weight:800; text-transform:uppercase; letter-spacing:0.05em;">Tarikh Pilihan Tempah</div>
+        <div class="date-display">${formattedDate}</div>
+        <div>
+          <span class="price-tag">RM 200 / Semalam</span>
+        </div>
+        <a href="${whatsappURL}" target="_blank" class="booking-btn">
+          💬 Tempah Sekarang di WhatsApp
+        </a>
+      `;
+    }
+
+    function pickDate() {
+      const btn = document.getElementById('rollBtn');
+      btn.disabled = true;
+      let count = 0;
+      const start = new Date(2026, 0, 1).getTime();
+      const end = new Date(2026, 11, 31).getTime();
+      
+      const interval = setInterval(() => {
+        const rand = new Date(start + Math.random() * (end - start));
+        // Update selection internally to let user watch months flip and dates randomize
+        currentMonth = rand.getMonth();
+        document.getElementById('monthSelect').value = currentMonth;
+        selectedDate = rand;
+        renderCalendar();
+        
+        document.getElementById('res').innerHTML = `
+          <div style="font-size:0.9rem; color:#c2410c; font-weight:700;">Mencari tarikh bertuah... 🎲</div>
+          <div class="date-display" style="color: #9cb3c5; filter: blur(0.5px); transform: scale(0.95);">${days[rand.getDay()]}, ${rand.getDate()} ${months[rand.getMonth()]} 2026</div>
+        `;
+        if (++count > 14) {
+          clearInterval(interval);
+          const final = new Date(start + Math.random() * (end - start));
+          currentMonth = final.getMonth();
+          document.getElementById('monthSelect').value = currentMonth;
+          selectedDate = final;
+          renderCalendar();
+          updateResultDisplay();
+          btn.disabled = false;
+        }
+      }, 70);
+    }
+  </script>
+</body>
+</html>
