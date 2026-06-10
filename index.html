@@ -4,116 +4,205 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tempahan Homestay DesaBarakah</title>
+  <!-- Google Fonts for elevated typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary: #ea580c;
+      --primary-hover: #f97316;
+      --primary-light: #fff7ed;
+      --accent: #16a34a;
+      --accent-hover: #15803d;
+      --dark: #0f172a;
+      --light: #f8fafc;
+      --border: #e2e8f0;
+    }
     body {
-      font-family: system-ui, -apple-system, sans-serif; margin: 0; min-height: 100vh;
-      display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box;
-      background: linear-gradient(135deg, #fef3c7 0%, #ffedd5 100%); color: #1e293b;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      margin: 0; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px; box-sizing: border-box;
+      background: linear-gradient(135deg, #fef3c7 0%, #ffedd5 50%, #fed7aa 100%);
     }
     .container {
-      background: white; border-radius: 32px; padding: 36px 28px; max-width: 620px; width: 100%;
-      box-shadow: 0 25px 50px -12px rgba(234, 88, 12, 0.15); border: 6px solid #fff;
+      background: white; border-radius: 36px; padding: 40px 32px; max-width: 680px; width: 100%;
+      box-shadow: 0 30px 60px -15px rgba(234, 88, 12, 0.15); border: 8px solid #fff;
+      position: relative; overflow: hidden;
     }
     .header-icon {
-      background: #ffedd5; width: 68px; height: 68px; border-radius: 50%; display: inline-flex;
-      align-items: center; justify-content: center; font-size: 2.2rem; margin: 0 auto 16px;
+      background: #ffedd5; width: 76px; height: 76px; border-radius: 50%; display: inline-flex;
+      align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 20px;
     }
     h1 {
-      font-size: 2.2rem; font-weight: 900; line-height: 1.15; margin: 0 0 8px; letter-spacing: -0.03em; text-align: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.4rem; font-weight: 700; line-height: 1.15; margin: 0 0 8px; letter-spacing: -0.03em; text-align: center;
       background: linear-gradient(to right, #ea580c, #db2777, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-    .tagline { color: #6b7280; font-size: 1.05rem; font-weight: 500; margin: 0 0 20px; text-align: center; }
+    .tagline { color: #6b7280; font-size: 1.05rem; font-weight: 500; margin: 0 0 24px; text-align: center; }
     
-    /* Specs Bento Grid */
+    /* Specs Grid - Visual Cards */
     .specs-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 24px;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px;
     }
     .spec-card {
-      background: #fafafa; border: 1.5px solid #f1f5f9; padding: 12px 14px; border-radius: 16px;
-      display: flex; align-items: center; gap: 10px; text-align: left; transition: transform 0.2s;
+      background: #fafafa; border: 1.5px solid var(--border); padding: 14px 16px; border-radius: 18px;
+      display: flex; align-items: center; gap: 12px; text-align: left; transition: all 0.2s;
     }
-    .spec-card:hover { transform: translateY(-2px); border-color: #ffd8a8; background: #fffcf5; }
-    .spec-icon { font-size: 1.5rem; }
-    .spec-title { font-size: 0.8rem; color: #64748b; margin: 0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
-    .spec-value { font-size: 0.95rem; color: #1e293b; font-weight: 700; margin: 1px 0 0; }
+    .spec-card:hover { transform: translateY(-2px); border-color: #fed7aa; background: #fffdfa; }
+    .spec-icon { font-size: 1.6rem; }
+    .spec-title { font-size: 0.75rem; color: #64748b; margin: 0; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+    .spec-value { font-size: 0.95rem; color: var(--dark); font-weight: 700; margin: 2px 0 0; }
     
     /* Calendar styling */
+    .section-title {
+      font-size: 1.2rem; font-weight: 800; color: var(--dark); margin: 0 0 16px; display: flex; align-items: center; gap: 8px;
+    }
     .cal-box {
-      background: #fffdfa; border: 2px solid #fed7aa; border-radius: 24px; padding: 20px; margin-bottom: 24px;
+      background: #fffdfa; border: 2px solid #fed7aa; border-radius: 24px; padding: 24px; margin-bottom: 24px;
     }
     .cal-header {
-      display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 8px;
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; gap: 8px;
     }
-    .cal-title { font-weight: 800; font-size: 1.1rem; color: #a16207; display: flex; align-items: center; gap: 6px; }
+    .cal-title { font-weight: 800; font-size: 1.15rem; color: #a16207; display: flex; align-items: center; gap: 6px; }
     .month-control { display: flex; align-items: center; gap: 8px; }
     .nav-btn {
-      background: #ffedd5; border: none; color: #ea580c; width: 34px; height: 34px; border-radius: 50%;
-      cursor: pointer; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
+      background: #ffedd5; border: none; color: #ea580c; width: 36px; height: 36px; border-radius: 50%;
+      cursor: pointer; font-weight: bold; font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
       transition: all 0.2s;
     }
     .nav-btn:hover { background: #fed7aa; color: #c2410c; }
     .month-select {
-      background: white; border: 1px solid #fed7aa; padding: 6px 12px; border-radius: 50px;
+      background: white; border: 1.5px solid #fed7aa; padding: 6px 14px; border-radius: 50px;
       font-size: 0.9rem; font-weight: 700; color: #ea580c; cursor: pointer; outline: none;
     }
     .weekdays {
       display: grid; grid-template-columns: repeat(7, 1fr); text-align: center;
-      font-size: 0.75rem; font-weight: 800; color: #9a3412; margin-bottom: 8px; text-transform: uppercase;
+      font-size: 0.8rem; font-weight: 800; color: #9a3412; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em;
     }
-    .days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+    .days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
     .day-btn {
       aspect-ratio: 1; border: none; background: transparent; border-radius: 50%; font-weight: 600;
-      font-size: 0.85rem; color: #4b5563; cursor: pointer; display: flex; align-items: center;
+      font-size: 0.9rem; color: #475569; cursor: pointer; display: flex; align-items: center;
       justify-content: center; transition: all 0.15s;
     }
     .day-btn:hover:not(.empty) { background: #ffedd5; color: #ea580c; font-weight: 700; }
-    .day-btn.selected { background: #ea580c !important; color: white !important; font-weight: 800; transform: scale(1.1); }
+    .day-btn.selected { background: var(--primary) !important; color: white !important; font-weight: 800; transform: scale(1.1); box-shadow: 0 4px 10px rgba(234, 88, 12, 0.3); }
     .day-btn.empty { cursor: default; }
 
-    /* Buttons */
-    .button {
-      background: linear-gradient(135deg, #ea580c, #f59e0b); border: none; color: white;
-      padding: 16px 36px; font-size: 1.2rem; font-weight: 800; border-radius: 50px; cursor: pointer;
-      width: 100%; transition: all 0.2s; box-shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.4);
-      display: flex; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box;
+    /* Interactive Steps / Forms */
+    .checkout-form {
+      display: none; background: #fafcb52b; border: 2.5px solid #e2e8f0; border-radius: 24px; padding: 24px; margin-top: 24px;
+      animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .button:hover { background: linear-gradient(135deg, #f97316, #fbbf24); transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(234, 88, 12, 0.5); }
-    .button:active { transform: translateY(1px); }
-    .button:disabled { background: #cbd5e1; cursor: not-allowed; box-shadow: none; }
+    .input-group {
+      margin-bottom: 16px; text-align: left;
+    }
+    .input-label {
+      font-size: 0.8rem; font-weight: 800; color: var(--dark); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 6px;
+    }
+    .input-field {
+      width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: 14px;
+      font-size: 0.95rem; font-family: inherit; font-weight: 600; color: var(--dark); box-sizing: border-box; transition: all 0.2s;
+    }
+    .input-field:focus {
+      outline: none; border-color: var(--primary); background: #fffcf8;
+    }
+
+    /* Gateway Selector Styling */
+    .gateway-container {
+      background: #f8fafc; border: 2px solid var(--border); border-radius: 18px; padding: 16px; margin: 18px 0;
+    }
+    .gateway-heading {
+      font-size: 0.85rem; font-weight: 800; color: #475569; text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;
+    }
+    .gateway-options {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+    }
+    .gateway-card {
+      border: 2px solid var(--border); background: white; border-radius: 14px; padding: 12px;
+      display: flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s; font-weight: 700; font-size: 0.9rem;
+    }
+    .gateway-card:hover { border-color: var(--primary); background: var(--primary-light); }
+    .gateway-card.active { border-color: var(--accent); background: #f0fdf4; color: var(--accent-hover); }
+    .gateway-logo { font-size: 1.3rem; }
+
+    /* Button styles */
+    .pay-btn {
+      background: linear-gradient(135deg, var(--accent), #22c55e); border: none; color: white;
+      padding: 16px 36px; font-size: 1.15rem; font-weight: 800; border-radius: 50px; cursor: pointer;
+      width: 100%; transition: all 0.2s; box-shadow: 0 10px 20px -5px rgba(22, 163, 74, 0.3);
+      display: flex; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box; margin-top: 16px;
+    }
+    .pay-btn:hover { background: linear-gradient(135deg, var(--accent-hover), #16a34a); transform: translateY(-2px); box-shadow: 0 15px 25px -5px rgba(22, 163, 74, 0.4); }
+    .pay-btn:active { transform: translateY(1px); }
+
+    /* Receipt Ticket overlay */
+    .modal-overlay {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(8px);
+      align-items: center; justify-content: center; padding: 16px; z-index: 100;
+      animation: fadeIn 0.3s ease;
+    }
+    .receipt-ticket {
+      background: white; border-radius: 28px; padding: 32px 24px; max-width: 440px; width: 100%;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.25); text-align: center; border: 3px solid #f1f5f9;
+      animation: popUp 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28); box-sizing: border-box;
+    }
+    .receipt-header {
+      background: #f0fdf4; border: 2px solid #bbf7d0; color: #166534; padding: 12px; border-radius: 16px;
+      font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 20px;
+    }
+    .receipt-logo {
+      font-size: 2.2rem; margin-bottom: 8px;
+    }
+    .receipt-details {
+      background: #f8fafc; border-radius: 16px; padding: 16px; text-align: left; margin-bottom: 20px;
+      border: 1px solid #e2e8f0; font-size: 0.9rem;
+    }
+    .receipt-row {
+      display: flex; justify-content: space-between; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed #e2e8f0;
+    }
+    .receipt-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .receipt-label { color: #64748b; font-weight: 600; }
+    .receipt-value { color: var(--dark); font-weight: 700; text-align: right; }
+
+    /* Custom Spinner animation */
+    .spinner-modal {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; z-index: 200;
+    }
+    .spinner-box {
+      background: white; padding: 32px; border-radius: 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+    .spinner {
+      border: 5px solid #f3f3f3; border-top: 5px solid var(--primary); border-radius: 50%;
+      width: 48px; height: 48px; animation: spin 1s linear infinite; margin: 0 auto 16px;
+    }
     
-    /* Result Box */
-    .result {
-      margin: 24px 0 0; padding: 22px; background: #fffcf8; border-radius: 20px;
-      border: 2px dashed #fed7aa; text-align: center; min-height: 90px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes popUp { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* Info Hint */
+    .unselected-msg {
+      background: #fafafa; border: 2px dashed #cbd5e1; border-radius: 24px; padding: 24px; text-align: center; color: #475569; font-weight: 600;
     }
-    .date-display {
-      font-size: 1.4rem; font-weight: 800; color: #9a3412; margin: 8px 0;
-      animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-    @keyframes pop { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-    
-    .price-tag {
-      background: #fef3c7; border: 1px solid #fde68a; padding: 4px 12px; border-radius: 50px;
-      font-size: 0.85rem; font-weight: 700; color: #b45309; display: inline-block; margin-top: 4px;
-    }
-    .booking-btn {
-      margin-top: 12px; background: #16a34a; color: white; border: none; padding: 10px 22px;
-      border-radius: 50px; font-size: 0.9rem; font-weight: 700; cursor: pointer; display: inline-flex;
-      align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25); transition: all 0.2s;
-      text-decoration: none;
-    }
-    .booking-btn:hover { background: #15803d; transform: translateY(-1px); }
-    .booking-btn:active { transform: translateY(1px); }
 
     @media (max-width: 480px) {
       .specs-grid { grid-template-columns: 1fr; }
-      .container { padding: 24px 18px; }
-      h1 { font-size: 1.8rem; }
+      .container { padding: 28px 20px; }
+      h1 { font-size: 1.9rem; }
+      .gateway-options { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
+
+  <!-- Main Booking Applet Container -->
   <div class="container">
     <div style="text-align: center;">
       <div class="header-icon">🏡</div>
@@ -121,7 +210,7 @@
     <h1>Tempahan Homestay DesaBarakah</h1>
     <p class="tagline">Suasana kampung yang damai, keselesaan moden yang mewah.</p>
     
-    <!-- Info Bento Grid -->
+    <!-- Info Section (Bento Grid) -->
     <div class="specs-grid">
       <div class="spec-card">
         <span class="spec-icon">📍</span>
@@ -133,15 +222,15 @@
       <div class="spec-card">
         <span class="spec-icon">💵</span>
         <div>
-          <p class="spec-title">Harga Semalam</p>
-          <p class="spec-value">RM 200 sahaja</p>
+          <p class="spec-title">Harga</p>
+          <p class="spec-value">RM 200 / Malam</p>
         </div>
       </div>
       <div class="spec-card">
         <span class="spec-icon">❄️</span>
         <div>
           <p class="spec-title">Bilik Tidur</p>
-          <p class="spec-value">3 Bilik Full Aircond</p>
+          <p class="spec-value">3 Bilik Aircond</p>
         </div>
       </div>
       <div class="spec-card">
@@ -153,7 +242,11 @@
       </div>
     </div>
 
-    <!-- Calendar Card Container -->
+    <!-- Step 1: Select Date (2026 Calendar) -->
+    <div class="section-title">
+      <span>1. Pilih Tarikh Tempahan Anda (Tahun 2026)</span>
+    </div>
+    
     <div class="cal-box">
       <div class="cal-header">
         <span class="cal-title">📅 Kalendar 2026</span>
@@ -183,13 +276,111 @@
       <div class="days-grid" id="daysGrid"></div>
     </div>
 
-    <!-- Main Random Selector Button -->
-    <button class="button" id="rollBtn" onclick="pickDate()">Pilih untuk saya! 🎲</button>
+    <!-- Step 2: Selected Date Feedback & Reservation Form -->
+    <div id="unselectedContent" class="unselected-msg">
+      💡 Sila klik pada mana-mana tarikh di kalendar untuk memulakan proses tempahan sempurna
+    </div>
 
-    <!-- Results Box -->
-    <div class="result" id="res">
-      <div style="font-size: 1rem; font-weight: 700; color: #c2410c;">Sila sedia untuk percutian 2026!</div>
-      <p style="color: #fb923c; margin: 4px 0 0; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Pilih pada kalendar di atas ATAU tekan butang rawak!</p>
+    <div id="checkoutSection" class="checkout-form">
+      <div class="section-title" style="margin-bottom: 20px; color: var(--accent);">
+        <span>✓ Tarikh Dipilih: <span id="displaySelectedDate" style="text-decoration: underline;"></span></span>
+      </div>
+
+      <!-- Customer Details -->
+      <div class="input-group">
+        <label class="input-label" for="custName">Nama Penuh Pelanggan</label>
+        <input type="text" id="custName" class="input-field" placeholder="Masukkan nama penuh anda" required>
+      </div>
+      
+      <div class="input-group">
+        <label class="input-label" for="custPhone">No. Telefon (WhatsApp)</label>
+        <input type="tel" id="custPhone" class="input-field" placeholder="Contoh: 0123456789" required>
+      </div>
+
+      <!-- Payment Gateway Selector -->
+      <div class="gateway-container">
+        <div class="gateway-heading">
+          <span>🔒 Payment Gateway Selamat</span>
+        </div>
+        <div class="gateway-options">
+          <div class="gateway-card active" id="gwFPX" onclick="setGateway('FPX')">
+            <span class="gateway-logo">🏦</span>
+            <div>
+              <div style="font-size: 0.85rem; font-weight: 800;">FPX Online Banking</div>
+              <div style="font-size: 0.7rem; color: #64748b; font-weight: 600;">M2U, Clicks, Bank Islam, etc.</div>
+            </div>
+          </div>
+          <div class="gateway-card" id="gwCard" onclick="setGateway('Card')">
+            <span class="gateway-logo">💳</span>
+            <div>
+              <div style="font-size: 0.85rem; font-weight: 800;">Kad Kredit / Debit</div>
+              <div style="font-size: 0.7rem; color: #64748b; font-weight: 600;">Visa atau Mastercard</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pay Button -->
+      <button class="pay-btn" onclick="startSecurePayment()">
+        🔒 Selesaikan Tempahan & Bayar RM 200
+      </button>
+    </div>
+  </div>
+
+  <!-- Simulated Bank Gateway Spinner Overlay -->
+  <div class="spinner-modal" id="spinnerModal">
+    <div class="spinner-box">
+      <div class="spinner"></div>
+      <div style="font-weight: 800; font-size: 1.1rem; color: var(--dark); margin-bottom: 6px;" id="spinnerText">Menyambung dengan Selamat...</div>
+      <div style="font-size: 0.85rem; color: #64748b; font-weight: 600; max-width: 250px; margin: 0 auto;">Sila jangan tutup atau menyegarkan halaman ini.</div>
+    </div>
+  </div>
+
+  <!-- Successful Payment Receipt Ticket Modal -->
+  <div class="modal-overlay" id="receiptModal">
+    <div class="receipt-ticket">
+      <div class="receipt-logo">🏡🎉</div>
+      <div class="receipt-header">
+        <span>✓ PEMBAYARAN BERJAYA</span>
+      </div>
+      <div style="font-size: 0.95rem; color: #475569; margin-bottom: 20px; font-weight: 600;">
+        Terima kasih! Resit pembayaran anda telah dijana dengan selamat.
+      </div>
+      
+      <div class="receipt-details">
+        <div class="receipt-row">
+          <span class="receipt-label">No. Tempahan</span>
+          <span class="receipt-value" id="rBookingId">DB-2026-XXXX</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">Pelanggan</span>
+          <span class="receipt-value" id="rCustName">-</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">No. WhatsApp</span>
+          <span class="receipt-value" id="rCustPhone">-</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">Masa Daftar Masuk</span>
+          <span class="receipt-value" id="rDaftarMasuk">-</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">Butiran Homestay</span>
+          <span class="receipt-value">Kg Bukit Tiu, Machang</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">Harga Penuh</span>
+          <span class="receipt-value" style="color: var(--accent); font-size: 1rem;">RM 200.00</span>
+        </div>
+        <div class="receipt-row">
+          <span class="receipt-label">Status Gateway</span>
+          <span class="receipt-value" style="color: var(--accent); text-transform: uppercase;" id="rGateway">FPX Paid</span>
+        </div>
+      </div>
+
+      <button class="pay-btn" style="background: var(--dark);" onclick="closeReceiptAndRedirect()">
+        Selesai & Hubungi Homestay 💬
+      </button>
     </div>
   </div>
 
@@ -197,10 +388,11 @@
     const days = ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'];
     const months = ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'];
     
-    let currentMonth = 5; // Start on June 2026 for demonstration
-    let selectedDate = null; // Store currently selected Date object
-    
-    // Set view to June 2026 by default
+    let currentMonth = 5; // Start in June 2026
+    let selectedDate = null;
+    let selectedGateway = 'FPX';
+
+    // Initialize calendar
     document.getElementById('monthSelect').value = currentMonth;
     renderCalendar();
 
@@ -208,34 +400,33 @@
       const grid = document.getElementById('daysGrid');
       grid.innerHTML = '';
       
-      // Get first day of current month in 2026
+      // First day index (0 for Sunday, etc.)
       const firstDayIndex = new Date(2026, currentMonth, 1).getDay();
-      // Get number of days in current month in 2026
+      // Total days in the chosen month
       const totalDays = new Date(2026, currentMonth + 1, 0).getDate();
       
-      // Render blank cells
+      // Blank spots
       for (let i = 0; i < firstDayIndex; i++) {
-        const emptyCell = document.createElement('div');
-        emptyCell.className = 'day-btn empty';
-        grid.appendChild(emptyCell);
+        const empty = document.createElement('div');
+        empty.className = 'day-btn empty';
+        grid.appendChild(empty);
       }
       
-      // Render active day buttons
+      // Populate day buttons
       for (let day = 1; day <= totalDays; day++) {
-        const dayBtn = document.createElement('button');
-        dayBtn.className = 'day-btn';
-        dayBtn.innerText = day;
+        const btn = document.createElement('button');
+        btn.className = 'day-btn';
+        btn.innerText = day;
         
-        // Check if this date is the selected date
         if (selectedDate && 
             selectedDate.getFullYear() === 2026 && 
             selectedDate.getMonth() === currentMonth && 
             selectedDate.getDate() === day) {
-          dayBtn.classList.add('selected');
+          btn.classList.add('selected');
         }
         
-        dayBtn.onclick = () => selectDate(day);
-        grid.appendChild(dayBtn);
+        btn.onclick = () => selectDate(day);
+        grid.appendChild(btn);
       }
     }
 
@@ -255,62 +446,88 @@
     function selectDate(day) {
       selectedDate = new Date(2026, currentMonth, day);
       renderCalendar();
-      updateResultDisplay();
-    }
-
-    function updateResultDisplay() {
-      if (!selectedDate) return;
+      
+      // Unveil checkout details
+      document.getElementById('unselectedContent').style.display = 'none';
+      document.getElementById('checkoutSection').style.display = 'block';
+      
       const dayName = days[selectedDate.getDay()];
-      const dayNum = selectedDate.getDate();
       const monthName = months[selectedDate.getMonth()];
-      const formattedDate = `${dayName}, ${dayNum} ${monthName} 2026`;
+      document.getElementById('displaySelectedDate').innerText = `${dayName}, ${day} ${monthName} 2026`;
       
-      // WhatsApp message text logic with URL encoding
-      const textMessage = encodeURIComponent(`Salam Homestay DesaBarakah, saya berminat untuk menempah penginapan pada tarikh bertuah ini: ${formattedDate}. Adakah ada kekosongan?`);
-      const whatsappURL = `https://wa.me/60123456789?text=${textMessage}`;
-
-      document.getElementById('res').innerHTML = `
-        <div style="font-size:0.85rem; color:#ea580c; font-weight:800; text-transform:uppercase; letter-spacing:0.05em;">Tarikh Pilihan Tempah</div>
-        <div class="date-display">${formattedDate}</div>
-        <div>
-          <span class="price-tag">RM 200 / Semalam</span>
-        </div>
-        <a href="${whatsappURL}" target="_blank" class="booking-btn">
-          💬 Tempah Sekarang di WhatsApp
-        </a>
-      `;
+      // Auto scroll smoothly to forms
+      document.getElementById('checkoutSection').scrollIntoView({ behavior: 'smooth' });
     }
 
-    function pickDate() {
-      const btn = document.getElementById('rollBtn');
-      btn.disabled = true;
-      let count = 0;
-      const start = new Date(2026, 0, 1).getTime();
-      const end = new Date(2026, 11, 31).getTime();
+    function setGateway(gw) {
+      selectedGateway = gw;
+      if (gw === 'FPX') {
+        document.getElementById('gwFPX').classList.add('active');
+        document.getElementById('gwCard').classList.remove('active');
+      } else {
+        document.getElementById('gwCard').classList.add('active');
+        document.getElementById('gwFPX').classList.remove('active');
+      }
+    }
+
+    function startSecurePayment() {
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
       
-      const interval = setInterval(() => {
-        const rand = new Date(start + Math.random() * (end - start));
-        // Update selection internally to let user watch months flip and dates randomize
-        currentMonth = rand.getMonth();
-        document.getElementById('monthSelect').value = currentMonth;
-        selectedDate = rand;
-        renderCalendar();
+      if (!name || !phone) {
+        alert('Sila isi maklumat Nama dan No. Telefon anda terlebih dahulu.');
+        return;
+      }
+
+      // Show secure loader
+      const spinnerModal = document.getElementById('spinnerModal');
+      const spinnerText = document.getElementById('spinnerText');
+      spinnerModal.style.display = 'flex';
+      
+      setTimeout(() => {
+        spinnerText.innerText = "Mengesahkan Saluran Selamat... 🔒";
+      }, 1000);
+
+      setTimeout(() => {
+        spinnerText.innerText = "Memproses Bayaran RM 200.00... 💸";
+      }, 2000);
+
+      setTimeout(() => {
+        // Complete transaction simulation
+        spinnerModal.style.display = 'none';
         
-        document.getElementById('res').innerHTML = `
-          <div style="font-size:0.9rem; color:#c2410c; font-weight:700;">Mencari tarikh bertuah... 🎲</div>
-          <div class="date-display" style="color: #9cb3c5; filter: blur(0.5px); transform: scale(0.95);">${days[rand.getDay()]}, ${rand.getDate()} ${months[rand.getMonth()]} 2026</div>
-        `;
-        if (++count > 14) {
-          clearInterval(interval);
-          const final = new Date(start + Math.random() * (end - start));
-          currentMonth = final.getMonth();
-          document.getElementById('monthSelect').value = currentMonth;
-          selectedDate = final;
-          renderCalendar();
-          updateResultDisplay();
-          btn.disabled = false;
-        }
-      }, 70);
+        // Generate values
+        const randomID = 'DB' + Math.floor(100000 + Math.random() * 900000);
+        const dayName = days[selectedDate.getDay()];
+        const monthName = months[selectedDate.getMonth()];
+        const formattedDate = `${dayName}, ${selectedDate.getDate()} ${monthName} 2026`;
+        
+        document.getElementById('rBookingId').innerText = randomID;
+        document.getElementById('rCustName').innerText = name;
+        document.getElementById('rCustPhone').innerText = phone;
+        document.getElementById('rDaftarMasuk').innerText = formattedDate;
+        document.getElementById('rGateway').innerText = selectedGateway + ' SUCCESS';
+        
+        // Display Receipt Modal
+        document.getElementById('receiptModal').style.display = 'flex';
+      }, 3500);
+    }
+
+    function closeReceiptAndRedirect() {
+      const name = document.getElementById('custName').value.trim();
+      const bId = document.getElementById('rBookingId').innerText;
+      const dayName = days[selectedDate.getDay()];
+      const monthName = months[selectedDate.getMonth()];
+      const formattedDate = `${dayName}, ${selectedDate.getDate()} ${monthName} 2026`;
+      
+      // Prepare WhatsApp verification
+      const msgText = encodeURIComponent(`Salam Homestay DesaBarakah, saya telah berjaya membuat bayaran RM 200 untuk tempahan homestay.\n\nButiran Tempahan:\n- ID Tempahan: ${bId}\n- Pelanggan: ${name}\n- Tarikh: ${formattedDate}\n- Lokasi: Kg Bukit Tiu, Machang Kelantan\n- Pilihan Gateway: ${selectedGateway}\n\nSila sahkan tempahan saya. Terima kasih!`);
+      
+      // Close modal
+      document.getElementById('receiptModal').style.display = 'none';
+      
+      // Open WhatsApp
+      window.open(`https://wa.me/60123456789?text=${msgText}`, '_blank');
     }
   </script>
 </body>
